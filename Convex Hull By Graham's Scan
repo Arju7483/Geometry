@@ -20,7 +20,10 @@ bool cmp(Point p1, Point p2){
     }
     return val == -1; // counter Clockwise
 }
-
+Point NextTop(stack<Point>s){
+    s.pop();
+    return s.top();
+}
 void ConvexHull(){
     int n; cin >> n;
     Point point[n];
@@ -31,7 +34,7 @@ void ConvexHull(){
     }
     int min_indx = 0;
     for(int i = 1; i < n; i++){
-        if(point[i].y < point[min_indx].y){
+        if(point[i].y < point[min_indx].y or (point[i].y == point[min_indx].y and point[i].x < point[min_indx].x)){
             min_indx = i;
         }
     }
@@ -42,17 +45,14 @@ void ConvexHull(){
     stk.push(point[0]);
     stk.push(point[1]);
     for(int i = 2; i < n; i++){
-        Point Top = stk.top();
-        stk.pop();
-        int val = Orientation(stk.top(),Top,point[i]);
-        if(val == -1){
-            stk.push(Top);
+        while(stk.size()>1 and Orientation(NextTop(stk),stk.top(),point[i]) != -1){ //removing colinear edges
+            stk.pop();
         }
         stk.push(point[i]);
     }
 
     while(!stk.empty()){
-         cout << stk.top().x << "," << stk.top().y << endl;
+         cout << stk.top().x << " " << stk.top().y << endl;
          stk.pop();
     }
 
