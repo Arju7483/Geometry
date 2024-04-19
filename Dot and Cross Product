@@ -40,6 +40,9 @@ freopen("output.txt","w",stdout);
     p3.y = 5;
     double area = Cross(p2 - p1,p3 - p2); // area = (|AB x BC|)/2 where AB and BC are two sides
     cout << abs(area)/2 << endl;          // AB = B-A and BC = C-B
+                                          // area > 0 if points are anticlockwise oriented
+                                          // area < 0 if points are clockwise oriented
+                                          // area = 0 if points are colinear
 
 
 }
